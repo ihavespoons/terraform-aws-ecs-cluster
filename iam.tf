@@ -8,7 +8,7 @@ resource "aws_iam_role" "cluster_instance_role" {
 
 resource "aws_iam_policy" "cluster_instance_policy" {
   description = "cluster-instance-policy-${var.component}-${var.deployment_identifier}-${var.cluster_name}"
-  policy      = coalesce(var.cluster_instance_iam_policy_contents, templatefile("${path.module}/policies/cluster-instance-policy.json"))
+  policy      = coalesce(var.cluster_instance_iam_policy_contents, templatefile("${path.module}/policies/cluster-instance-policy.json", {}))
 }
 
 resource "aws_iam_policy_attachment" "cluster_instance_policy_attachment" {
