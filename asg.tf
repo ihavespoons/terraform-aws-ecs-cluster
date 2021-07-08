@@ -11,7 +11,7 @@ data "aws_ami" "amazon_linux_2" {
 
 resource "aws_launch_configuration" "cluster" {
   name_prefix   = "cluster-${var.component}-${var.deployment_identifier}-${var.cluster_name}-"
-  image_id      = templatefile(coalesce(lookup(var.cluster_instance_amis, var.region), data.aws_ami.amazon_linux_2.image_id))
+  image_id      = templatefile(coalesce(lookup(var.cluster_instance_amis, var.region), data.aws_ami.amazon_linux_2.image_id), {})
   instance_type = var.cluster_instance_type
   key_name      = var.cluster_instance_ssh_public_key_path == "" ? "" : element(concat(aws_key_pair.cluster.*.key_name, [""]), 0)
 
